@@ -157,7 +157,7 @@ const  updatedonutquantity = async(event)=>{
         </section>
         <section>
             <div className='container'>
-            <p>My Donut: </p>
+            <p>My Chips: </p>
             <input value={mydonutcount}></input>
                 
             </div>
@@ -165,7 +165,7 @@ const  updatedonutquantity = async(event)=>{
         <section className='mt-5'>
             <div className='container'>
                 <div className='field'>
-                    <label className='label'>Buy Donut</label>
+                    <label className='label'>Buy Chips</label>
                     <div className='control'>
                         <input value={buyqty} onChange={updatedonutquantity} className='input' type="number" placeholder='enter amount'></input>
                     </div>

@@ -44,11 +44,12 @@ const App = ({ scale = Array.from({ length: 50 }, () => 0.5 + Math.random() * 4)
       
       <Suspense fallback={null}>
         
-      
+      <group>
       <Displayscreen position={[2.5, -1.15, -1.72]}  scale={0.05}/>
       <VendingMach scale={0.4} position={[2.3, -2, -2.02]} />
-      <PositionalAudio autoplay loop url="/64kbps.mp3" distance={1}/>
-        
+      <PositionalAudio autoplay loop url="64kbps.mp3" distance={1}/>
+
+      </group>
         {/* <Model/> */}
       </Suspense>
      
