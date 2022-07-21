@@ -349,9 +349,9 @@
            <group position={[-2.21, 0.1, -2]} rotation={[0, -0.35, 0]} scale={0.64}>
              <mesh geometry={nodes.Object_244.geometry} material={materials.paper} />
            </group>
-           <group scale={14.97}>
+           {/* <group scale={14.97}>
              <mesh geometry={nodes.Object_246.geometry} material={materials.material_0} />
-           </group>
+           </group> */}
            <group position={[0, 8.15, 0]} scale={10.23}>
              <mesh geometry={nodes.Object_248.geometry} material={materials.material} />
            </group>

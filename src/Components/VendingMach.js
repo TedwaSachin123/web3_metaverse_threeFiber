@@ -8,6 +8,8 @@ title: Vending Machine
 
  import React, { useRef } from 'react'
  import { useGLTF } from '@react-three/drei'
+import SelectToZoom from './zoomonclick'
+import { Bounds } from '@react-three/drei'
 
  export default function VendingMach({ ...props }) {
    const group = useRef()
@@ -26,9 +28,11 @@ title: Vending Machine
            </group>
            <mesh geometry={nodes.Object_4.geometry} material={materials.Machine} />
            <mesh geometry={nodes.Object_5.geometry} material={materials.Plates} />
-          
+           <Bounds clip observe margin={1.2}>
+          <SelectToZoom>
            <mesh geometry={nodes.Object_7.geometry} material={materials.Glass} />
-          
+          </SelectToZoom>
+          </Bounds>
          </group>
        </group>
      </group>
