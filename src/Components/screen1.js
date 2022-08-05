@@ -7,6 +7,7 @@ import { useGLTF, Html } from '@react-three/drei'
 import "bulma/css/bulma.css";
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
+import Manager from "../artifacts/contracts/Manager.sol/Manager.json";
 
 export default function Displayscreen({ ...props }) {
   const [buyqty, setbuyqty] = useState("");
@@ -35,50 +36,11 @@ export default function Displayscreen({ ...props }) {
       try {
     const useraddress = await window.ethereum.request({method:"eth_requestAccounts"})
     setAddress(useraddress[0])
-    const contractAddress = "0x3Be769353B5B7052380C2C71229B6C2467a40608";
-    const abi = [
-      { inputs: [], stateMutability: "nonpayable", type: "constructor" },
-      {
-        inputs: [{ internalType: "address", name: "", type: "address" }],
-        name: "donutbalance",
-        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-        stateMutability: "view",
-        type: "function",
-      },
-      {
-        inputs: [],
-        name: "owner",
-        outputs: [{ internalType: "address", name: "", type: "address" }],
-        stateMutability: "view",
-        type: "function",
-      },
-      {
-        inputs: [],
-        name: "getvendingmachinebalance",
-        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-        stateMutability: "view",
-        type: "function",
-      },
-      {
-        inputs: [{ internalType: "uint256", name: "amt", type: "uint256" }],
-        name: "restock",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [{ internalType: "uint256", name: "amt", type: "uint256" }],
-        name: "purchase",
-        outputs: [],
-        stateMutability: "payable",
-        type: "function",
-      },
-    ];
-    
+    const contractAddress = "0x3Be769353B5B7052380C2C71229B6C2467a40608";  
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const newSigner = provider.getSigner();
     
-    const contract = new ethers.Contract(contractAddress, abi, newSigner);
+    const contract = new ethers.Contract(contractAddress, Manager.abi, newSigner);
     setcontract(contract);
   }
   catch(err){
@@ -114,9 +76,10 @@ const  updatedonutquantity = async(event)=>{
     seterror("")
         setsuccess('')
     try{setLoadingScreen('Transaction Pending !!');
-    await signedcontract.purchase(buyqty, {
+    const transaction = await signedcontract.purchase(buyqty, {
       value: ethers.utils.parseEther((2*buyqty).toString())
-    })
+    });
+    await transaction.wait(1);
     setLoadingScreen('')
     setsuccess('donut purchase !!')
     seterror('')
@@ -142,32 +105,34 @@ const  updatedonutquantity = async(event)=>{
           <mesh castShadow receiveShadow geometry={nodes.Cube008_1.geometry} material={materials['matte.001']} />
           <Html className="content" rotation-x={-Math.PI / 2} position={[0, 0.05, -0.09]} transform occlude>
           <div className="wrapper">
-          <nav className="navbar mt-4 mb-4">
+          <nav className=" mt-4 mb-4">
             <div className='container'>
                 <div className='navbar-brand'>
-                    <h1>Vending Machine</h1>
+                    <h1>Welcome</h1>
                 </div>
             </div>
           </nav>
           <section>
-            <div className='container'>
-              <p>Vending Machine Inventory: </p>
-                <input value={inventory}></input>
+            <div className='container is-flex'>
+              <p>Vending_Machine_Inventory: </p>
+                <input className="ml-4" size="1" value={inventory}></input>
             </div>
         </section>
         <section>
-            <div className='container'>
-            <p>My Chips: </p>
-            <input value={mydonutcount}></input>
+            <div className='container is-flex'>
+            <p>My_Chips: </p>
+            <input  className="ml-4" size="1" value={mydonutcount}></input>
                 
             </div>
         </section>
         <section className='mt-5'>
             <div className='container'>
                 <div className='field'>
-                    <label className='label'>Buy Chips</label>
+                  <div className='container is-flex'>
+                    <label className='label'>Buy_Chips</label>
                     <div className='control'>
-                        <input value={buyqty} onChange={updatedonutquantity} className='input' type="number" placeholder='enter amount'></input>
+                        <input value={buyqty} onChange={updatedonutquantity} className='ml-4' type="number" placeholder='enter amount'></input>
+                    </div>
                     </div>
                     <button onClick={Buyhandler} className='button is-primary mt-2'>Buy </button>
                     </div>
