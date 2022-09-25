@@ -23,7 +23,7 @@ To run this project locally, follow these steps.
 1. Clone the project locally, change into the directory, and install the dependencies:
 
 ```sh
-git clone https://github.com/Uttam-Singhh/NFT-market
+git clone https://github.com/TedwaSachin123/web3_metaverse_threeFiber
 
 # install using NPM or Yarn
 npm install
@@ -48,5 +48,5 @@ npx hardhat run scripts/deploy.js --network localhost
 4. Start the app
 
 ```
-npm run dev
+npm start
 ```
